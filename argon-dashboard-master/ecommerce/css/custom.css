@@ -1,0 +1,11 @@
+button.link-prod-title {
+    background: transparent;
+    border: none;
+cursor: pointer;
+}
+
+
+.btn-add-to-cart
+{
+    border: none !important;
+}
