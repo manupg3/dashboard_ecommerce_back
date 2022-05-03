@@ -10,6 +10,7 @@ if(isset($_POST)){
 
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -31,6 +32,7 @@ if(isset($_POST)){
 	<!--
 			CSS
 			============================================= -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="css/linearicons.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/themify-icons.css">
@@ -42,6 +44,8 @@ if(isset($_POST)){
 	<link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/sidebarcartcss.css">
+
 	
 </head>
 
@@ -95,7 +99,7 @@ if(isset($_POST)){
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a onclick="mostrarYcargarCarrito();" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -724,7 +728,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
-	<!-- End footer Area -->
+
+	<!-- Sidebar Cart -->
+
+	<div class="cart-sidebar" >
+	<span class="icon-close-cart"><i  class="fa-solid fa-xmark"></i></span>
+    <div class="title-sidebar"><h3>Tu Pedido</h3></div>
+<div class="cart-body" id="cart-body">
+ 
+</div>
+<div class="buttons-footer">
+         <button class="checkout-sidebar-cart primary-btn">Finalizar Compra</button>
+     </div>
+	 </div>
+	
+	
+	 <!-- End footer Area -->
 
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -741,7 +760,74 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/gmaps.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/customjs.js"></script>
+	<script src="js/sidebarcart.js"></script>
 
+
+
+	<script>
+		
+var cart_btn = document.querySelector('.cart');
+var cart_sidebar = document.querySelector('.cart-sidebar');
+var icon_close_btn = document.querySelector('.icon-close-cart');
+
+cart_btn.onclick = function(){
+
+    cart_sidebar.style.right = "0";
+    mostrarYcargarCarrito();
+}
+icon_close_btn.onclick = function(){
+ 
+	cart_sidebar.style.right = "-500px";
+    limpiarCarrito();
+
+}
+function limpiarCarrito(){
+    const cart_item = document.getElementsByClassName('cart-item');
+    //cart_item.remove();    
+}
+function mostrarYcargarCarrito(){
+	const cart_body = document.getElementById('cart-body');
+
+	var cartItems = JSON.parse(localStorage.getItem('sidebarCart'));
+	 console.log("CART ITEMS",cartItems);
+	 cart_body.innerHTML = '';
+
+	 cartItems.forEach(item => {
+
+     	const itemsEnCarrito = JSON.parse(localStorage.getItem('ItemsEnCarrito')); 
+    
+	console.log(itemsEnCarrito);
+
+	 console.log("ITEM EN CARRITO", item);
+	 const itemF = document.createElement('div');
+	 itemF.className = "cart-item";
+     const divImg = document.createElement('div');
+	 divImg.className = "img-cart";
+	 const imgF = document.createElement('img');
+	 imgF.src = "img/category/s-p1.jpg";
+	 const textosF = document.createElement('div');
+	 textosF.className = "textos-cart";
+	 
+	 const h4F = document.createElement('h4');
+	 h4F.className = "title-prod-side-cart";
+	 h4F.textContent = item.tituloItemCart;
+
+	 const h5F = document.createElement('h5');
+	 h5F.className = "price-prod-side-cart";
+	 h5F.textContent = item.precioItemCart;
+
+     cart_body.appendChild(itemF);
+	 itemF.appendChild(divImg);
+	 divImg.appendChild(imgF);
+	 itemF.appendChild(textosF);
+	 textosF.appendChild(h4F);
+	 textosF.appendChild(h5F);
+     
+	 localStorage.setItem('ItemsEnCarrito',JSON.stringify(item));
+      
+	});
+     }
+	</script>
 </body>
 
 </html>

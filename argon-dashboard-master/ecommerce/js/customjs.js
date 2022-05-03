@@ -156,3 +156,7 @@ let itemsEnStorage = JSON.parse(localStorage.getItem('sidebarCart'));
 
     console.log("ITEMS ASYNC", items);
   }
+
+function mostrarYcargarCarrito(){
+  console.log("CARGAR ITMES");
+}
