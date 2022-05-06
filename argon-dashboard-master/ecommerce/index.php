@@ -39,7 +39,6 @@
 		CSS
 		============================================= -->
 	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/owl.carousel.css">
@@ -50,10 +49,14 @@
 	<link rel="stylesheet" href="css/magnific-popup.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/sidebarcartcss.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
 </head>
 
-<body>
+<body onload="quantityCart()">
 
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -103,7 +106,9 @@
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a  class="cart"><span class="ti-bag"><span class="cart-quantity">
+            0
+          </span></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -310,14 +315,16 @@
 				<div class="row">
 					<!-- single product -->
 					<?php
+                    $coma = ",";
+                    foreach ($arrDestacados as $producto) {
+						$i= strval($producto['id']);
+						$id = "addToCart".$i;
+						$urlImagen = "img/product/".$producto['imagen'];
 
-   foreach ($arrDestacados as $producto) {
-          
-                             
-             ?>			
+				?>
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="img/product/p1.jpg" alt="">
+							<img class="img-fluid img-prod" id="img-prod" src="<?php  echo $urlImagen; ?>" alt="">
 							<div class="product-details">
 								<form action="single-product.php" method="POST">
 								<button class="link-prod-title"><h6><?php  echo $producto['titulo']; ?></h6></button>
@@ -335,11 +342,11 @@
 									<h6><?php  echo $producto['precio']; ?></h6>
 									<h6 class="l-through">$210.00</h6>
 								</div>
-								<div class="prd-bottom">
-
-									<a href="" class="social-info">
+								<div class="prd-bottom" id="div-btn-index">
+                                        
+									<a onclick="addToCartIndex('<?php echo $producto['id'];echo $coma;echo $producto['titulo'];echo $coma;echo $producto['precio']; ?>');quantityCart();" id="<?php echo $id; ?>" name="addToCart" value="<?php echo $producto['titulo']; ?>"   class="social-info">
 										<span class="ti-bag"></span>
-										<p class="hover-text">Agregar al carrito</p>
+										<p class="hover-text">Agregar</p>
 									</a>
 									<a href="" class="social-info">
 										<span class="lnr lnr-heart"></span>
@@ -386,13 +393,13 @@
 			  
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="img/product/p6.jpg" alt="">
+							<img class="img-fluid img-prod" id="img-prod" src="img/product/p6.jpg" alt="">
 							<div class="product-details">
 								<form action="single-product.php">
-								<button class="link-prod-title" type="submit"><h6><?php  echo $producto['titulo']; ?></h6></button>
+								<button class="link-prod-title" type="submit"><h6 id="titulo-prod"><?php  echo $producto['titulo']; ?></h6></button>
 								</form>
 								<div class="price">
-									<h6><?php  echo $producto['precio']; ?></h6>
+									<h6 id="precio-prod"><?php  echo $producto['precio']; ?></h6>
 									<h6 class="l-through">$210.00</h6>
 								</div>
 								<div class="prd-bottom">
@@ -732,8 +739,25 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </p>
 			</div>
+			
 		</div>
 	</footer>
+		<!-- Sidebar Cart -->
+
+		<div class="cart-sidebar" >
+	<span class="icon-close-cart"><i  class="fa-solid fa-xmark"></i></span>
+    <div class="title-sidebar"><h3>Tu Pedido</h3></div>
+<div class="cart-body" id="cart-body">
+</div>
+<div class="footer-cart" id="footer-cart">
+     <div class="text-footer">
+       <h5 id="subtotal-cart"> </h5>    
+	</div>
+    <div class="buttons-footer">
+        <a href="checkout.php"><button class="checkout-sidebar-cart primary-btn">Finalizar Compra</button></a> 
+    </div>
+	</div>
+</div>
 	<!-- End footer Area -->
 
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
@@ -751,6 +775,38 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="js/gmaps.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/sidebarcart.js"></script>
+	<script src="js/customindexjs.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+	<script>
+	function quantityCart(){
+	var cartItems = JSON.parse(localStorage.getItem('sidebarCart'));
+    if(cartItems != null){
+		$('.cart-quantity').text(cartItems.length);
+		console.log("LENGTH",cartItems.length);
+	}
+}
+
+		
+var cart_btn = document.querySelector('.cart');
+var cart_sidebar = document.querySelector('.cart-sidebar');
+var icon_close_btn = document.querySelector('.icon-close-cart');
+
+cart_btn.onclick = function(){
+
+    cart_sidebar.style.right = "0";
+    mostrarYcargarCarrito();
+}
+icon_close_btn.onclick = function(){
+ 
+	cart_sidebar.style.right = "-500px";
+
+}
+
+
+	</script>
 </body>
 
 </html>

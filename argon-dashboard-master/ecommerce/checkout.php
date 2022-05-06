@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body onload="urlCheck();">
 
     <!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -80,7 +80,7 @@
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a href="#" id="cart" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -122,8 +122,9 @@
         <div class="container">
             <div class="returning_customer">
                 <div class="check_title">
-                    <h2>Returning Customer? <a href="#">Click here to login</a></h2>
+                    <h2>¿Ya sos cliente? <a data-toggle="collapse" href="#collapseLogin" role="button" aria-expanded="false" aria-controls="collapseLogin">Ingresa a tu cuenta</a></h2>
                 </div>
+                <div class="collapse" id="collapseLogin">
                 <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
                     customer, please proceed to the Billing & Shipping section.</p>
                 <form class="row contact_form" action="#" method="post" novalidate="novalidate">
@@ -144,13 +145,16 @@
                         <a class="lost_pass" href="#">Lost your password?</a>
                     </div>
                 </form>
+                </div>
             </div>
             <div class="cupon_area">
                 <div class="check_title">
-                    <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
+                    <h2>¿Tenes un cupon de descuento? <a data-toggle="collapse" href="#collapseCoupon" role="button" aria-expanded="false" aria-controls="collapseCoupon">Ingresar cupon</a></h2>
                 </div>
+               <div class="collapse" id="collapseCoupon">
                 <input type="text" placeholder="Enter coupon code">
                 <a class="tp_btn" href="#">Apply Coupon</a>
+                </div>
             </div>
             <div class="billing_details">
                 <div class="row">
@@ -223,17 +227,14 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="order_box">
-                            <h2>Your Order</h2>
-                            <ul class="list">
-                                <li><a href="#">Product <span>Total</span></a></li>
-                                <li><a href="#">Fresh Blackberry <span class="middle">x 02</span> <span class="last">$720.00</span></a></li>
-                                <li><a href="#">Fresh Tomatoes <span class="middle">x 02</span> <span class="last">$720.00</span></a></li>
-                                <li><a href="#">Fresh Brocoli <span class="middle">x 02</span> <span class="last">$720.00</span></a></li>
+                            <h2>Tu Pedido</h2>
+                            <ul class="list" id="ul-order-review">
+                              <li><a href="#">Producto <span>Total</span></a></li>
                             </ul>
                             <ul class="list list_2">
-                                <li><a href="#">Subtotal <span>$2160.00</span></a></li>
-                                <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>
-                                <li><a href="#">Total <span>$2210.00</span></a></li>
+                                <li><a href="#">Subtotal <span id="subtotal-order-review">$2160.00</span></a></li>
+                                <li><a href="#">Envio <span id="shipping-method"></span></a></li>
+                                <li><a href="#">Total <span id="total-order-review"></span></a></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
@@ -366,6 +367,50 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="js/gmaps.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        function urlCheck(){
+         let urlActual = window.location.href;
+         if(urlActual == "http://localhost/dashboardphpjs/argon-dashboard-master/ecommerce/checkout.php");
+             console.log("ESTAMOS EN EL CHECKOUT");  
+             $('#cart').hide();
+         cargarPedido();
+
+            }
+            function cargarPedido(){
+               let envioPropio = 500;
+                var cartItems = JSON.parse(localStorage.getItem('sidebarCart'));
+                const ulOrderReview = document.getElementById('ul-order-review');
+                 var subTotal=0;
+                cartItems.forEach(item => {
+                     
+                   const li = document.createElement('li');
+                   const a = document.createElement('a');
+                   const spanN = document.createElement('span');
+                   spanN.className ="middle";
+                   const spanP = document.createElement('span');
+                   spanP.className ="last";
+
+                   spanN.textContent = item.tituloItemCart;
+                   spanP.textContent = "$"+item.precioItemCart;
+                   
+                   ulOrderReview.appendChild(li);
+                   li.appendChild(a);
+                   a.appendChild(spanN);
+                   a.appendChild(spanP);
+
+
+                });
+
+        for (let index = 0; index < cartItems.length; index++) {
+        subTotal += Number(cartItems[index].precioItemCart);
+        }
+      let total = subTotal + envioPropio;
+
+         $('#subtotal-order-review').text("$"+subTotal);                    
+         $('#shipping-method').text("Envio Propio: "+"$"+envioPropio);
+         $('#total-order-review').text("$"+total)
+            }
+    </script>
 </body>
 
 </html>

@@ -778,55 +778,10 @@ cart_btn.onclick = function(){
 icon_close_btn.onclick = function(){
  
 	cart_sidebar.style.right = "-500px";
-    limpiarCarrito();
 
 }
-function limpiarCarrito(){
-    const cart_item = document.getElementsByClassName('cart-item');
-    //cart_item.remove();    
-}
-function mostrarYcargarCarrito(){
-	const cart_body = document.getElementById('cart-body');
 
-	var cartItems = JSON.parse(localStorage.getItem('sidebarCart'));
-	 console.log("CART ITEMS",cartItems);
-	 cart_body.innerHTML = '';
 
-	 cartItems.forEach(item => {
-
-     	const itemsEnCarrito = JSON.parse(localStorage.getItem('ItemsEnCarrito')); 
-    
-	console.log(itemsEnCarrito);
-
-	 console.log("ITEM EN CARRITO", item);
-	 const itemF = document.createElement('div');
-	 itemF.className = "cart-item";
-     const divImg = document.createElement('div');
-	 divImg.className = "img-cart";
-	 const imgF = document.createElement('img');
-	 imgF.src = "img/category/s-p1.jpg";
-	 const textosF = document.createElement('div');
-	 textosF.className = "textos-cart";
-	 
-	 const h4F = document.createElement('h4');
-	 h4F.className = "title-prod-side-cart";
-	 h4F.textContent = item.tituloItemCart;
-
-	 const h5F = document.createElement('h5');
-	 h5F.className = "price-prod-side-cart";
-	 h5F.textContent = item.precioItemCart;
-
-     cart_body.appendChild(itemF);
-	 itemF.appendChild(divImg);
-	 divImg.appendChild(imgF);
-	 itemF.appendChild(textosF);
-	 textosF.appendChild(h4F);
-	 textosF.appendChild(h5F);
-     
-	 localStorage.setItem('ItemsEnCarrito',JSON.stringify(item));
-      
-	});
-     }
 	</script>
 </body>
 

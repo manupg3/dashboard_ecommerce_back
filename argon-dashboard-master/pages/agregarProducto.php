@@ -84,7 +84,7 @@
               </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                  <a href="http://localhost/argon-dashboard-master/argon-dashboard-master/pages/productos.php" class="btn btn-sm mb-0 me-1 btn-primary">Ver Todos Los Productos</a>
+                  <a href="productos.php" class="btn btn-sm mb-0 me-1 btn-primary">Ver Todos Los Productos</a>
                 </li>
               </ul>
             </div>
@@ -146,7 +146,7 @@
 
                     </table>
                     <div class="text-center">
-                      <a href="../pages/productos.php" id="ir_a_productos" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Ver Todos Los Productos</a>
+                      <a href="productos.php" id="ir_a_productos" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Ver Todos Los Productos</a>
                     </div>
                 </div>
                

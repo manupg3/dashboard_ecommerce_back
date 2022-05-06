@@ -313,13 +313,13 @@ function logOut(){
   
 
   $.ajax({
-    url:'../argon-dashboard-master/assets/crud/logOut.php',
+    url:'../assets/crud/logOut.php',
     type: 'POST',
     success:function(response){
   console.log("Response log out",response);
       if(response){
         
-    //   window.location.href = 'https://dashboardphpjs.aios.com.ar/argon-dashboard-master/pages/sign-in.php';
+       window.location.href = '../../argon-dashboard-master/pages/sign-in.php';
 
 
       }
@@ -351,7 +351,7 @@ function logIn(){
       let textoAlert = "¡Iniciando session...!"
       setTimeout(() => {
 
-        window.location.href = '../../dashboard.php';
+        window.location.href = 'dashboard.php';
 
       }, 2100);
 

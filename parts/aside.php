@@ -19,10 +19,8 @@
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link id="pagestyle" href="argon-dashboard-master/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
 
-  <link  href="argon-dashboard-master/assets/css/styles-aside.css" rel="stylesheet" />
-
+ 
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -35,7 +33,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link " id="dashboard" href="/">
+          <a class="nav-link " id="dashboard" href="dashboard.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -51,15 +49,15 @@
             </a>
       
             <ul class="dropdowm-aside">  
-              <li><a href="argon-dashboard-master/pages/productos.php"><span class="li-float">Todos los productos</span>
+              <li><a href="productos.php"><span class="li-float">Todos los productos</span>
 </a></li>
-              <li><a href="argon-dashboard-master/pages/agregarProducto.php"><span class="li-float">Añadir producto</span>
+              <li><a href="agregarProducto.php"><span class="li-float">Añadir producto</span>
 </a></li>
          </ul> 
         </li>
   
         <li class="nav-item">
-          <a class="nav-link " href="argon-dashboard-master/pages/rtl.html">
+          <a class="nav-link " href="rtl.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
@@ -70,7 +68,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mi Cuenta</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../argon-dashboard-master/pages/profile.php">
+          <a class="nav-link " href="profile.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
@@ -87,6 +85,6 @@
         </li>
       </ul>
     </div>
-  
+
     </div>
   </aside>
